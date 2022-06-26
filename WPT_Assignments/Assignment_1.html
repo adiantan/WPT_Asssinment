@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>assignment</title>
+    <script>
+        window.addEventListener('DOMContentLoaded',()=>{
+    
+             
+            let addupdatedel=false;
+            
+        
+            let x=[11,12,13,14,15,16,17,18,19,20];
+
+            function toCheck(inputNum){
+                let found=false;
+                for(let i=0;i<x.length;i++)
+                {
+                    if(x[i]==inputNum)
+                    {
+                        found=true;
+                        break;
+                    }
+                }
+                return found;
+
+            }
+
+
+            //add function
+            function addToarray(num){
+                x.push(num);
+                return true;
+            }
+
+            // delete function
+            function remove(num){
+                let index=-1;
+                for(let i=0;i<x.length;i++){
+                    if(x[i]==num)
+                    {
+                        index=i;
+                        break;
+                    }
+                }
+                if(index>=0)
+                    {
+                     x.splice(index,1)//position and how many element
+                     return true;
+                    }
+                return false;
+            }
+
+
+            // update function
+            function UpdateStaus(presentnum,newnum){
+                let stat=false;
+                if(!toCheck(newnum))//to check the number is peresnt or not
+                {
+                    for(let i=0 ;i<x.length;i++){
+
+                        if(x[i]==presentnum)//comparing with peesnt num and replaing
+                        {
+                            x[i]=newnum;
+                            stat=true;
+                            break;
+                        }
+                    }
+
+                }
+                return stat;
+            }
+
+            // show al function
+            function getArray()
+            {
+                let temp=x.toString();
+                return temp;
+
+            }
+
+            function getArrayContentsFromOdd()
+  {
+  let contents = "";
+		for(let i=0; i < x.length; i++)
+	{
+		if( i%2 != 0)
+			contents += " " + x[i];
+   }
+   return contents;
+	
+  
+  }
+
+
+            console.log("event working");
+         let t1=document.querySelector("#t1");
+         t1.addEventListener('blur',()=>{
+
+            let n1=document.querySelector('#t1').value;
+            let con=toCheck(n1);
+            console.log(con);
+            if(con){
+                document.querySelector("#b1").disabled=true;
+                document.querySelector("#edit").disabled=false;
+                document.querySelector("#del").disabled=false;
+                document.querySelector("#view").disabled=true;
+                document.querySelector("#show").disabled=true;
+                document.querySelector('#msg').innerHTML="number present"
+
+            }
+            else
+            {
+                document.querySelector("#b1").disabled=false;
+
+
+                
+                // document.querySelector('#msg').innerHTML="number not present so added"
+                // x.push(n1);
+
+            }
+
+           // console.log('on blur')
+         })
+
+         
+
+         //add button event handlererr
+         let add=document.querySelector('#b1')
+         add.addEventListener('click',()=>{
+            addupdatedel=true;
+            let n1=document.querySelector('#t1').value;
+            let adStatus=addToarray(n1);
+            if(adStatus)
+            {
+                document.querySelector('#msg').innerHTML="number adeed";
+            }
+            else
+            {
+                document.querySelector("#b1").disabled=true;
+                document.querySelector("#edit").disabled=true;
+                document.querySelector("#del").disabled=true;
+                document.querySelector("#view").disabled=true;
+                document.querySelector("#show").disabled=true;
+                
+
+            }
+            document.querySelector("#b1").disabled=true;
+                document.querySelector("#edit").disabled=true;
+                document.querySelector("#del").disabled=true;
+                document.querySelector("#view").disabled=true;
+                document.querySelector("#show").disabled=true;
+
+                if(addupdatedel)
+                {
+                    document.querySelector("#view").disabled=false;
+                document.querySelector("#show").disabled=false;
+
+                }
+
+
+
+
+ 
+            //console.log('add clicked');
+         })
+
+         // delete button event
+         let del=document.querySelector('#del');
+         del.addEventListener('click',()=>{
+            addupdatedel=true;
+             
+
+            let n1=document.querySelector('#t1').value;
+            let status=remove(n1);
+            if(status){
+            document.querySelector("#msg").innerHTML="Number removed";
+            }
+            else
+            {
+                document.querySelector("#msg").innerHTML="Number NOT removed";
+            }
+            document.querySelector("#b1").disabled=true;
+                document.querySelector("#edit").disabled=true;
+                document.querySelector("#del").disabled=true;
+                document.querySelector("#view").disabled=true;
+                document.querySelector("#show").disabled=true;
+                if(addupdatedel)
+                {
+                    document.querySelector("#view").disabled=false;
+                document.querySelector("#show").disabled=false;
+
+                }
+
+            console.log('delete working');
+         })//end delete logic
+
+         //  update event handlerr
+
+         let update=document.querySelector('#edit');
+         update.addEventListener('click',()=>{
+            addupdatedel=true;
+
+            console.log("update working");
+
+            let t1=document.querySelector('#t1').value;
+            let newnum=window.prompt('enter number');
+            let status=UpdateStaus(t1,newnum);
+            if(status)
+            document.querySelector("#msg").innerHTML="Number updated";
+            else
+            document.querySelector("#msg").innerHTML="Number NOT updated";
+            document.querySelector("#b1").disabled=true;
+                document.querySelector("#edit").disabled=true;
+                document.querySelector("#del").disabled=true;
+                document.querySelector("#view").disabled=true;
+                document.querySelector("#show").disabled=true;
+
+
+           console.log(t1 +" "+ newnum);
+           //eneble view all button
+           if(addupdatedel)
+                {
+                    document.querySelector("#view").disabled=false;
+                document.querySelector("#show").disabled=false;
+
+                }
+
+         })
+
+         let views=document.querySelector('#view')
+         views.addEventListener("click",()=>{
+            let output=getArray();
+            document.querySelector('#a1').innerText=output;
+
+          //console.log('viw working');
+
+         })
+
+
+         let showodd=document.querySelector('#show');
+         showodd.addEventListener("click",()=>{
+            let out=getArrayContentsFromOdd();
+            document.querySelector('#a1').innerText=out;
+
+
+            console.log('odd show working');
+         })
+
+
+           
+        });
+    </script>
+</head>
+<body>
+    <h1>asignment1</h1>
+    <input type="text" name="num" placeholder="enter number" id="t1" >
+    <span id="msg">X</span>
+    <br> <button id="b1" disabled>add</button>
+     <button id="edit" disabled>edit</button>
+     <button id="del" disabled>delete</button>
+     <button id="view" disabled>viewall</button>
+     <button id="show" disabled>showoddPos</button>
+     <br>
+     <p id="a1"></p>
+    
+</body>
+</html>
